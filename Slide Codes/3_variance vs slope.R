@@ -1,17 +1,23 @@
-library(tidyverse)
-x1 <- (rnorm(100)*4-2)
-y1 <- x1*0.3+runif(100)
-y2 <- x1*0.1+runif(100)-3
-y3 <- x1*0.3+runif(100,min=-5,max=5)
-tb <- tibble(x1,y1,y2)
+# uncomment and run the install.packages command FOR THE FIRST TIME you run this code.
+# install.packages('tidyverse')
+# install.packages('patchwork')
 
+library(tidyverse)
+library(patchwork)
+x <- (rnorm(100)*4-2)
+y1 <- x*0.3+runif(100)
+y2 <- x*0.1+runif(100)-3
+y3 <- x*0.3+runif(100,min=-5,max=5)
+tb <- tibble(x,y1,y2)
+
+# code chunk 1
 ggplot(tb)+
-  geom_point(aes(x1,y3),color='green')+
-  geom_smooth(aes(x1,y3),method = lm, color='green')+
-  geom_point(aes(x1,y1),color='blue')+
-  geom_smooth(aes(x1,y1),method = lm)+
-  geom_point(aes(x1,y2),color='red')+
-  geom_smooth(aes(x1,y2),method = lm,color='red')+
+  geom_point(aes(x,y3),color='green')+
+  geom_smooth(aes(x,y3),method = lm, color='green')+
+  geom_point(aes(x,y1),color='blue')+
+  geom_smooth(aes(x,y1),method = lm)+
+  geom_point(aes(x,y2),color='red')+
+  geom_smooth(aes(x,y2),method = lm,color='red')+
   scale_x_continuous(limits = c(-15,20))+
   annotate('rect',xmin = 8, xmax = 20, ymin = 3, ymax = 5,
                   alpha = 0)+
@@ -34,5 +40,23 @@ ggplot(tb)+
   xlab('x')+
   ylab('y')+
   theme_bw()
-  
-  
+
+# code chunk 2
+p1 <- ggplot(tb)+
+  geom_point(aes(x,y3),color='darkseagreen')+
+  geom_smooth(aes(x,y3),method = lm, color='darkseagreen')+
+  scale_y_continuous(limits = c(-8,8))
+
+p2 <- ggplot(tb)+
+  geom_point(aes(x,y2),color='blue')+
+  geom_smooth(aes(x,y2),method = lm, color='blue')+
+  scale_y_continuous(limits = c(-8,8))+
+  labs(y=NULL)
+
+p3 <- ggplot(tb)+
+  geom_point(aes(x,y1),color='red')+
+  geom_smooth(aes(x,y1),method = lm, color='red')+
+  scale_y_continuous(limits = c(-8,8))+
+  labs(y=NULL)
+
+p3+p2+p1
