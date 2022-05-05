@@ -2,6 +2,7 @@ cd "G:\My Drive\7 Maths & Stats\CGSS\data" //change to the directory that contai
 use "cgss2017.dta"
 
 //Subjective social class and health status
+tab a43e
 cibar a15 if a43e<=5 & a15<=5,over1( a43e) ciopts(lcolor(gs12)) bargap(20) graph(ylab(1(1)5) ytitle("Mean self-reported health score") title("Self-rated Health over subjective social class (CGSS 2017)"))
 
 catplot a15 a43e if a43e<=5 & a15<=5, stack asyvars percent(a43e) ytitle("% reporting each health status") title("Self-rated Health over subjective social class (CGSS 2017)", span)
